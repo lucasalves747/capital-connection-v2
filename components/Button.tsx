@@ -1,36 +1,49 @@
 import React from 'react';
-import { ArrowRight } from 'lucide-react';
-import { CHECKOUT_URL } from '../constants';
 
-interface ButtonProps {
-  children?: React.ReactNode;
-  fullWidth?: boolean;
-  className?: string;
-  variant?: 'primary' | 'outline';
+interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  href?: string;
 }
 
-export const Button: React.FC<ButtonProps> = ({ 
-  children = "Quero Acelerar Meu Negócio", 
-  fullWidth = false, 
-  className = "",
-  variant = 'primary'
+export const Button: React.FC<ButtonProps> = ({
+  href,
+  children,
+  ...props
 }) => {
-  const baseStyles = "inline-flex items-center justify-center gap-2 px-8 py-4 font-bold text-lg uppercase tracking-wide transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg rounded-sm";
-  
-  const variants = {
-    primary: "bg-cyan-500 hover:bg-cyan-400 text-black shadow-cyan-500/20",
-    outline: "border-2 border-cyan-500 text-cyan-500 hover:bg-cyan-500 hover:text-black"
-  };
+  // 🔗 CTA GLOBAL DA URL
+  const params = new URLSearchParams(window.location.search);
+  const urlCTA = params.get('cta');
 
+  // 👉 prioridade:
+  // 1️⃣ href passado no componente
+  // 2️⃣ cta da URL
+  const finalLink = href || urlCTA;
+
+  // 👉 Se tiver link (URL ou href), vira <a>
+  if (finalLink) {
+    return (
+      <a
+        href={finalLink}
+        className="inline-flex items-center justify-center px-8 py-4 rounded-xl font-semibold text-white
+                   bg-gradient-to-r from-cyan-400 to-blue-600
+                   hover:from-cyan-500 hover:to-blue-700
+                   transition-all duration-300 shadow-lg shadow-cyan-900/30"
+      >
+        {children}
+      </a>
+    );
+  }
+
+  // 👉 Caso contrário, vira botão normal
   return (
-    <a 
-      href={CHECKOUT_URL}
-      target="_blank"
-      rel="noopener noreferrer"
-      className={`${baseStyles} ${variants[variant]} ${fullWidth ? 'w-full' : ''} ${className}`}
+    <button
+      {...props}
+      className="inline-flex items-center justify-center px-8 py-4 rounded-xl font-semibold text-white
+                 bg-gradient-to-r from-cyan-400 to-blue-600
+                 hover:from-cyan-500 hover:to-blue-700
+                 transition-all duration-300 shadow-lg shadow-cyan-900/30"
     >
       {children}
-      <ArrowRight className="w-5 h-5" />
-    </a>
+    </button>
   );
 };

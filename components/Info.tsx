@@ -3,6 +3,15 @@ import { Clock, MapPin, Calendar, Users, Coffee } from 'lucide-react';
 import { Button } from './Button';
 
 export const Info: React.FC = () => {
+  // 🔗 Pegando parâmetros da URL
+  const params = new URLSearchParams(window.location.search);
+
+  const local =
+    params.get('local') || 'Ambientes empresariais selecionados';
+
+  const dataEvento =
+    params.get('data') || 'Calendário mensal';
+
   return (
     <section className="py-12 bg-gray-900 border-t border-gray-800">
       <div className="container mx-auto px-4">
@@ -14,25 +23,27 @@ export const Info: React.FC = () => {
           <div className="flex flex-col items-center text-center p-6 bg-brand-dark rounded-lg border border-gray-800">
             <Clock className="w-10 h-10 text-cyan-500 mb-4" />
             <h4 className="text-white font-bold mb-2">Duração</h4>
-            <p className="text-gray-400 text-sm">3,5 horas de imersão</p>
+            <p className="text-gray-400 text-sm">3 horas de imersão</p>
           </div>
-          
+
           <div className="flex flex-col items-center text-center p-6 bg-brand-dark rounded-lg border border-gray-800">
             <Coffee className="w-10 h-10 text-cyan-500 mb-4" />
             <h4 className="text-white font-bold mb-2">Início</h4>
             <p className="text-gray-400 text-sm">Coffee Break de recepção</p>
           </div>
 
+          {/* LOCAL DINÂMICO */}
           <div className="flex flex-col items-center text-center p-6 bg-brand-dark rounded-lg border border-gray-800">
             <MapPin className="w-10 h-10 text-cyan-500 mb-4" />
             <h4 className="text-white font-bold mb-2">Local</h4>
-            <p className="text-gray-400 text-sm">Ambientes empresariais selecionados</p>
+            <p className="text-gray-400 text-sm">{local}</p>
           </div>
 
+          {/* DATA DINÂMICA */}
           <div className="flex flex-col items-center text-center p-6 bg-brand-dark rounded-lg border border-gray-800">
             <Calendar className="w-10 h-10 text-cyan-500 mb-4" />
             <h4 className="text-white font-bold mb-2">Datas</h4>
-            <p className="text-gray-400 text-sm">Calendário mensal</p>
+            <p className="text-gray-400 text-sm">{dataEvento}</p>
           </div>
 
           <div className="flex flex-col items-center text-center p-6 bg-brand-dark rounded-lg border border-gray-800">
@@ -52,8 +63,8 @@ export const Info: React.FC = () => {
             </p>
             <Button>Quero Acelerar Meu Negócio Agora</Button>
           </div>
-           {/* Decorative sheen */}
-           <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-cyan-500/10 to-transparent pointer-events-none"></div>
+
+          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-cyan-500/10 to-transparent pointer-events-none"></div>
         </div>
       </div>
     </section>
