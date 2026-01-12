@@ -1,19 +1,14 @@
 import React from 'react';
 import { MapPin, Calendar, Clock, Coffee } from 'lucide-react';
 import { Button } from './Button';
+import { motion } from 'framer-motion';
 
 export const Hero: React.FC = () => {
   // 🔗 Lendo parâmetros da URL
   const params = new URLSearchParams(window.location.search);
 
-  const local =
-    params.get('local') || 'LOCAL A DEFINIR';
-
-  const dataEvento =
-    params.get('data') || 'Data a definir';
-
-  const ctaLink =
-    params.get('cta') || '#';
+  const local = params.get('local') || 'LOCAL A DEFINIR';
+  const dataEvento = params.get('data') || 'Data a definir';
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-brand-dark pt-16 pb-8 lg:pt-0 lg:pb-0">
@@ -38,30 +33,70 @@ export const Hero: React.FC = () => {
 
       <div className="container mx-auto px-4 z-10 relative grid lg:grid-cols-12 gap-12 items-center">
         
-        {/* Conteúdo */}
-        <div className="lg:col-span-7 space-y-8">
-          
-          {/* LOCAL DINÂMICO */}
-          <div className="inline-block px-3 py-1 border border-cyan-500/30 rounded-full bg-cyan-950/30 text-cyan-400 text-sm font-semibold tracking-wider mb-4 uppercase">
+        {/* CONTEÚDO — animação em cascata */}
+        <motion.div
+          className="lg:col-span-7 space-y-8"
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: { staggerChildren: 0.12 },
+            },
+          }}
+        >
+          {/* Local */}
+          <motion.div
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: { opacity: 1, y: 0 },
+            }}
+            className="inline-block px-3 py-1 border border-cyan-500/30 rounded-full bg-cyan-950/30 text-cyan-400 text-sm font-semibold tracking-wider mb-4 uppercase"
+          >
             {local}
-          </div>
+          </motion.div>
 
-          <h1 className="text-6xl md:text-8xl font-display font-bold uppercase leading-none tracking-tighter text-white">
+          <motion.h1
+            variants={{
+              hidden: { opacity: 0, y: 30 },
+              visible: { opacity: 1, y: 0 },
+            }}
+            className="text-6xl md:text-8xl font-display font-bold uppercase leading-none tracking-tighter text-white"
+          >
             Capital <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600">
               Connection
             </span>
-          </h1>
+          </motion.h1>
 
-          <h2 className="text-xl md:text-2xl text-gray-300 max-w-2xl font-light border-l-4 border-cyan-500 pl-4">
+          <motion.h2
+            variants={{
+              hidden: { opacity: 0, y: 30 },
+              visible: { opacity: 1, y: 0 },
+            }}
+            className="text-xl md:text-2xl text-gray-300 max-w-2xl font-light border-l-4 border-cyan-500 pl-4"
+          >
             Destrave Seu Próximo Nível Empresarial. Conecte-se com a elite do mercado.
-          </h2>
+          </motion.h2>
 
-          <p className="text-gray-400 max-w-xl text-lg">
+          <motion.p
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: { opacity: 1, y: 0 },
+            }}
+            className="text-gray-400 max-w-xl text-lg"
+          >
             O Capital Connection é um encontro empresarial exclusivo, criado para quem entende que crescimento não é sobre trabalhar mais — é sobre estar no ambiente certo.
-          </p>
+          </motion.p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-300 py-4">
+          <motion.div
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: { opacity: 1, y: 0 },
+            }}
+            className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-300 py-4"
+          >
             <div className="flex items-center gap-3">
               <MapPin className="text-cyan-400 w-5 h-5" />
               <span>Ambiente empresarial selecionado</span>
@@ -77,23 +112,30 @@ export const Hero: React.FC = () => {
               <span>Experiência imersiva de 3h</span>
             </div>
 
-            {/* DATA DINÂMICA */}
             <div className="flex items-center gap-3">
               <Calendar className="text-cyan-400 w-5 h-5" />
               <span>{dataEvento}</span>
             </div>
-          </div>
+          </motion.div>
 
-          {/* BOTÃO COM LINK DA URL */}
-          <div className="pt-4">
-           
-              <Button>Quero Acelerar Meu Negócio</Button>
-            
-          </div>
-        </div>
+          <motion.div
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: { opacity: 1, y: 0 },
+            }}
+            className="pt-4"
+          >
+            <Button>Quero Acelerar Meu Negócio</Button>
+          </motion.div>
+        </motion.div>
 
-        {/* Visual */}
-        <div className="lg:col-span-5 relative hidden lg:block">
+        {/* IMAGEM — fade + slide lateral */}
+        <motion.div
+          className="lg:col-span-5 relative hidden lg:block"
+          initial={{ opacity: 0, x: 60 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+        >
           <div className="relative z-10 rounded-lg overflow-hidden border border-gray-800 shadow-2xl shadow-cyan-900/20">
             <img 
               src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1887&auto=format&fit=crop" 
@@ -104,7 +146,7 @@ export const Hero: React.FC = () => {
 
           <div className="absolute -top-10 -right-10 w-32 h-32 border border-cyan-500/20 rounded-full animate-pulse"></div>
           <div className="absolute -bottom-10 -left-10 w-48 h-48 border border-blue-600/10 rounded-full"></div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
