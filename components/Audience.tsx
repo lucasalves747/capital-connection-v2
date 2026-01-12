@@ -42,9 +42,9 @@ export const Audience: React.FC = () => {
           <div className="relative">
              <div className="absolute inset-0 bg-cyan-500/20 blur-3xl rounded-full"></div>
              <img 
-               src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=1932&auto=format&fit=crop" 
+               src="https://storage.googleapis.com/msgsndr/dkM0aNpySiIFf3uusFTa/media/696545e3f8a93b4e0c026230.png" 
                alt="Meeting" 
-               className="relative z-10 rounded-xl shadow-2xl border border-gray-700 grayscale hover:grayscale-0 transition-all duration-500"
+               className="relative z-10 rounded-xl shadow-2xl border "
              />
           </div>
 
